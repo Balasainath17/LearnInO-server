@@ -25,7 +25,7 @@ app.use(cookieParser());
 // cors => cross origin resource sharing
 app.use(
   cors({
-    origin: ['https://learn-in-o.vercel.app/'],
+    origin: ['https://learn-in-o.vercel.app'],
     credentials: true,
   })
 );
