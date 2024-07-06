@@ -265,7 +265,7 @@ interface ISocialAuthBody {
 export const socialAuth = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { email, name, avatar } = req.body;
+      const { email, name, avatar } = req.body as ISocialAuthBody;
       const user = await userModel.findOne({ email });
       if (!user) {
         const newUser = await userModel.create({ email, name, avatar });
@@ -365,10 +365,10 @@ interface IUpdateProfilePicture {
 export const updateProfilePicture = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { avatar } = req.body;
+      const { avatar } = req.body as IUpdateProfilePicture;
 
       const userId = req.user?._id;
-      const user = await userModel.findById(userId);
+      const user = await userModel.findById(userId).select("+password");
 
       if (avatar && user) {
         // if user has an avatar
